@@ -1,0 +1,26 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery
+    admin:
+      client:
+        url: http://localhost:8081  # URL of the admin server
+        instance:
+          service-base-url: http://localhost:8080  # 👈 important fix
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Or specific ones like "health", "info"
+  endpoint:
+    health:
+      show-details: always
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
