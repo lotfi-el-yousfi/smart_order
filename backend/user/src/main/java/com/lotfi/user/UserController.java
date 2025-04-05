@@ -1,7 +1,5 @@
- 
+package com.lotfi.user;
 
-import com.example.service.UserService;
-import com.example.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 

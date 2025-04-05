@@ -1,9 +1,5 @@
- 
+package com.lotfi.order;
 
-import com.example.repository.OrderRepository;
-import com.example.dto.OrderDto;
-import com.example.domain.Order;
-import com.example.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;

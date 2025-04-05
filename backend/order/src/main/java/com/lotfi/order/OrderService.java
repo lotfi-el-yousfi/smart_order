@@ -1,6 +1,5 @@
- 
+package com.lotfi.order;
 
-import com.example.dto.OrderDto;
 import java.util.List;
 
 public interface OrderService {

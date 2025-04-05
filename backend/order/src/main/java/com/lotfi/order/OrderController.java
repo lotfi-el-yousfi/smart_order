@@ -1,8 +1,7 @@
- 
+package com.lotfi.order;
 
-import com.example.service.OrderService;
-import com.example.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController

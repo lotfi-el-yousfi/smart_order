@@ -1,14 +1,16 @@
- 
+package com.lotfi.order;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User") 
-public class User {
+@Table(name = "Order")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

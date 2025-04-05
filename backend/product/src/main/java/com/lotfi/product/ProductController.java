@@ -1,6 +1,7 @@
 package com.lotfi.product;
 
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -18,7 +19,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto create(@RequestBody ProductDto dto) {
+    public ProductDto AddProduct(@RequestBody ProductDto dto) {
         return service.create(dto);
     }
+
+    @PostMapping
+    public ProductDto SearchProduct(@RequestBody ProductDto dto) {
+        return service.create(dto);
+    }
+
+
 }

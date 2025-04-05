@@ -9,7 +9,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repo;
     private final ProductMapper mapper;
 
-    public ProductServiceImpl(ProductRepository repo, ProductMapper mapper) {
+    public ProductServiceImpl(ProductRepository repo,
+                              ProductMapper mapper) {
         this.repo = repo;
         this.mapper = mapper;
     }

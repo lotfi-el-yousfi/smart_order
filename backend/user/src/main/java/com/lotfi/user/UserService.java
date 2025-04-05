@@ -1,6 +1,7 @@
- 
+package com.lotfi.user;
 
-import com.example.dto.UserDto;
+import com.lotfi.user.UserDto;
+
 import java.util.List;
 
 public interface UserService {

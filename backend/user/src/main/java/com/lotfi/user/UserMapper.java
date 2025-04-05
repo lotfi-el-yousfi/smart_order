@@ -1,8 +1,7 @@
- 
+package com.lotfi.user;
 
+import com.lotfi.user.UserDto;
 import org.mapstruct.Mapper;
-import com.example.dto.UserDto;
-import com.example.domain.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
