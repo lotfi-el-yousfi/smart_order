@@ -1,5 +1,6 @@
 package com.lotfi.product;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,20 +14,37 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<ProductDto> getAll() {
-        return service.getAll();
+
+    @GetMapping("/list")
+    public ResponseEntity<List<ProductDto>> Listallproducts() {
+        return ResponseEntity.ok().body(service.Listallproducts());
     }
 
-    @PostMapping("add_product")
-    public ProductDto AddProduct(@RequestBody ProductDto dto) {
-        return service.create(dto);
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> GetproductdetailsbyID(@PathVariable Long id) {
+        return ResponseEntity.ok().body(service.GetproductdetailsbyID(id));
     }
 
     @PostMapping("/search")
-    public ProductDto SearchProduct(@RequestBody ProductDto dto) {
-        return service.create(dto);
+    public ResponseEntity<List<ProductDto>> SearchByNameCategoryPrice() {
+        return ResponseEntity.ok().body(service.SearchByNameCategoryPrice());
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<Long> AddNewProduct(@RequestBody ProductDto dto) {
+        return ResponseEntity.ok().body(service.AddNewProduct(dto));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Long> UpdateProduct(@PathVariable int id,
+                                              @RequestBody ProductDto dto) {
+        return ResponseEntity.ok().body(service.UpdateProduct(id, dto));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> DeleteProduct(@PathVariable int id) {
+        service.DeleteProduct(id);
+        return (ResponseEntity<?>) ResponseEntity.noContent();
+    }
 
 }
