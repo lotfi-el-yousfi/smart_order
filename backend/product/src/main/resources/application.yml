@@ -2,7 +2,7 @@ server:
   port: 8083
 spring:
   datasource:
-    jdbc: h2:mem:schooldb;DB_CLOSE_DELAY=-1
+    jdbc: h2:mem:productDb;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
     User Name: sa
     password:

@@ -16,6 +16,12 @@ spring:
   #          uri: lb://student-service
   #          predicates:
   #            - Path=/students/**
+    admin:
+      client:
+        url: http://localhost:8081  # URL of the admin server
+        instance:
+          service-base-url: http://localhost:8080  # 👈 important fix
+
   config:
     import: optional:configserver:http://localhost:8888
     admin:

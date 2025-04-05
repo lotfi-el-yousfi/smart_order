@@ -18,12 +18,12 @@ public class ProductController {
         return service.getAll();
     }
 
-    @PostMapping
+    @PostMapping("add_product")
     public ProductDto AddProduct(@RequestBody ProductDto dto) {
         return service.create(dto);
     }
 
-    @PostMapping
+    @PostMapping("/search")
     public ProductDto SearchProduct(@RequestBody ProductDto dto) {
         return service.create(dto);
     }

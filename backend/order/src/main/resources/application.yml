@@ -1,8 +1,8 @@
 server:
-  port: 8085
+  port: 8084
 spring:
   datasource:
-    jdbc: h2:mem:userDb;DB_CLOSE_DELAY=-1
+    jdbc: h2:mem:orderDB;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
     User Name: sa
     password:
@@ -20,7 +20,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
 
   application:
-    name: user
+    name: order
     admin:
       client:
         url: http://localhost:8081  # URL of the admin server

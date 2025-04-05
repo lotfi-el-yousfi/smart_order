@@ -1,7 +1,9 @@
 package com.lotfi.order;
 
 
-@Mapper(componentModel = "spring")
+import org.mapstruct.Mapper;
+
+@Mapper  (componentModel = "spring")
 public interface OrderMapper {
     OrderDto toDto(Order entity);
 
