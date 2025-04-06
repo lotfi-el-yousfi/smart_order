@@ -9,14 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13",
-    "vuetify": "^3.8.0",
+    "axios": "^1.8.4",
     "jest": "^29.7.0",
-    "axios": "^1.8.4"
+    "sass": "^1.86.3",
+    "vite-plugin-vuetify": "^1.0.2",
+    "vue": "^3.3.4",
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
-    "vite": "^6.2.4",
+    "vite": "^4.5.12",
     "vite-plugin-vue-devtools": "^7.7.2"
   }
 }

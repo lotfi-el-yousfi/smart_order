@@ -1,10 +1,18 @@
 <script setup>
-import ProductList from "@/domain/product/components/product-list.vue";
+import AppBar from "@/domain/main-layout/components/App-Bar.vue";
 </script>
-
 <template>
-  <product-list></product-list>
+  <v-app>
+    <AppBar></AppBar>
+
+    <v-main>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
+
 
 <style scoped>
 
