@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {ProductDto} from "../../model/ProductDto";
 
-export const baseUrl = 'http://localhost:8080/product/api/product'; // this if gatway is not returning cors error
-//export const baseUrl = 'http://localhost:8083/api/product';
+export const baseUrl = 'http://localhost:8080/product/api'; // this if gatway is not returning cors error
+//export const baseUrl = 'http://localhost:8083/api';
 
 export const getProducts = async () => {
     console.log(`${baseUrl}/list`)
@@ -21,3 +21,4 @@ export function updateProduct(id: number,
                               product: ProductDto) {
     return axios.put(`${baseUrl}/update/${id}`, product);
 }
+

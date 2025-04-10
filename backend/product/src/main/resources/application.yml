@@ -15,8 +15,6 @@ spring:
       enabled: true
       path: /h2-console
 
-
-
   jpa:
     hibernate:
       ddl-auto: create-drop  # or create-drop
@@ -35,6 +33,14 @@ spring:
       enabled: true  # Enable service discovery (Eureka)
   config:
     import: "optional:configserver:"
+
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+
+  sleuth:
+    sampler:
+      probability: 1.0 # traces 100% of requests (for testing)
 management:
   endpoints:
     web:
@@ -57,10 +63,4 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
-  zipkin:
-    base-url: http://localhost:9411
-    enabled: true
 
-  sleuth:
-    sampler:
-      probability: 1.0 # traces 100% of requests (for testing)

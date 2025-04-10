@@ -6,17 +6,21 @@
   >
 
   </v-data-table>
-  <h1>this is data table </h1>
 </template>
 
 <script setup>
-const headers = [
-  {title: 'Name', key: 'name'},
-  {title: 'Age', key: 'age'},
-];
+import {onMounted, ref} from "vue";
+import {getProducts} from "@/domain/product/service/ressource/product-service";
 
-const desserts = [
-  {name: 'Alice', age: 25},
-  {name: 'Bob', age: 30},
-];
+const headers = ref([])
+const desserts = ref([])
+
+onMounted(() => {
+  getProducts().then((products) => {
+    console.log(products.data)
+    headers.value =  products.data.keys
+    desserts.value = products.data
+  })
+})
+
 </script>
