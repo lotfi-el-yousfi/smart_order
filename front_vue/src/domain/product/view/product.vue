@@ -5,9 +5,9 @@ import productedit from "@/domain/product/components/product-edit.vue";
 </script>
 
 <template>
-  <productlist></productlist>
   <productsearch></productsearch>
   <productedit></productedit>
+  <productlist></productlist>
 </template>
 
 <style scoped>

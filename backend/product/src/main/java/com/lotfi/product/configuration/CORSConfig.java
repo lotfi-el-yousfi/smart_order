@@ -1,14 +1,11 @@
 package com.lotfi.product.configuration;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 ///this is a temporary file created cause the gateway not allowed cors
 @Configuration
-public class  CORSConfig {
+public class CORSConfig {
 //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {
 //        return new WebMvcConfigurer() {

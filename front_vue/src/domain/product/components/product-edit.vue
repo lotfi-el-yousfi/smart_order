@@ -1,5 +1,5 @@
 <template>
-  <h1>this is the data dgrid view </h1>
+
   <v-form @submit.prevent="onSubmit">
     <v-text-field v-model="product.name" label="Name" variant="outlined" density="compact"/>
     <v-text-field v-model="product.price" label="Price" type="number" variant="outlined" density="compact"/>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, reactive} from 'vue'
+import {ref, onMounted} from 'vue'
 import {useRoute} from 'vue-router'
 import {createProduct, getProductById, updateProduct} from "@/domain/product/service/ressource/product-service.ts";
 
