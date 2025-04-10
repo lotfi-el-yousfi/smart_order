@@ -1,44 +1,75 @@
 <template>
-  <v-data-table
+  <v-data-table-server
+      v-model:items-per-page="itemsPerPage"
       :headers="headers"
-      :items="products"
-      class="elevation-1"
-  >
-    <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">
-        mdi-pencil
-      </v-icon>
-      <v-icon small @click="deleteItem(item)">
-        mdi-delete
-      </v-icon>
-    </template>
-  </v-data-table>
+      :items="serverItems"
+      :items-length="totalItems"
+      :loading="loading"
+      item-value="name"
+      @update:options="loadItems"
+  ></v-data-table-server>
 </template>
-
 <script setup>
-import {onMounted, ref} from 'vue'
-import ProductService from '@/domain/product/service/ressource/prodcut-service.ts'
+import {ref} from 'vue'
 
-const products = ref([])
-const headers = [
-  {text: 'Name', value: 'name'},
-  {text: 'Price', value: 'price'},
-  {text: 'Actions', value: 'actions', sortable: false}
+const cars = [
+  {
+    name: 'Ford Mustang',
+    horsepower: 450,
+    fuel: 'Gasoline',
+    origin: 'USA',
+    price: 55000,
+  },
+  {
+    name: 'Tesla Model S',
+    horsepower: 670,
+    fuel: 'Electric',
+    origin: 'USA',
+    price: 79999,
+  },
+
 ]
 
-onMounted(() => {
-  ProductService.getProducts()
-      .then(response => {
-        products.value = response.data;
-        console.log("--------------------",response.data)
-      })
-})
-
-function editItem(item) {
-  console.log(item)
+const FakeAPI = {
+  async fetch({page, itemsPerPage, sortBy}) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const start = (page - 1) * itemsPerPage
+        const end = start + itemsPerPage
+        const items = cars.slice()
+        if (sortBy.length) {
+          const sortKey = sortBy[0].key
+          const sortOrder = sortBy[0].order
+          items.sort((a, b) => {
+            const aValue = a[sortKey]
+            const bValue = b[sortKey]
+            return sortOrder === 'desc' ? bValue - aValue : aValue - bValue
+          })
+        }
+        const paginated = items.slice(start, end)
+        resolve({items: paginated, total: items.length})
+      }, 500)
+    })
+  },
 }
+const itemsPerPage = ref(5)
+const headers = ref([
+  {title: 'Car Model', key: 'name', align: 'start'},
+  {title: 'Horsepower', key: 'horsepower', align: 'end'},
+  {title: 'Fuel Type', key: 'fuel', align: 'start'},
+  {title: 'Origin', key: 'origin', align: 'start'},
+  {title: 'Price ($)', key: 'price', align: 'end'},
+])
+const serverItems = ref([])
+const loading = ref(true)
+const totalItems = ref(0)
 
-function deleteItem(item) {
-  console.log(item)
+function loadItems({page, itemsPerPage, sortBy}) {
+  loading.value = true
+  FakeAPI.fetch({page, itemsPerPage, sortBy}).then(({items, total}) => {
+    serverItems.value = items
+    totalItems.value = total
+    loading.value = false
+  })
 }
 </script>
