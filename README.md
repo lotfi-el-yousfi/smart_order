@@ -2,7 +2,9 @@
 
 **User:** lotfi el yousfi  
 **Created:** 4/4/2025  
- 
+
+### kanban link
+### https://trello.com/b/iSLSzQT9/kanban-template
 
 🚀 **Exercise: "Smart Orders" – Microservice E-Commerce App**
 -------------------------------------------------------------
