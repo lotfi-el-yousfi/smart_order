@@ -3,7 +3,7 @@ package com.lotfi.gateway.security;
 
 //@Configuration
 //@EnableWebFluxSecurity
-//public class SecurityConfig {
+public class SecurityConfig {
 //
 ////    @Bean
 ////    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
@@ -15,4 +15,4 @@ package com.lotfi.gateway.security;
 ////                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwkSetUri("{your-jwk-set-uri}"))) // Configure JWT resource server
 ////                .build();
 ////    }
-//}
+}

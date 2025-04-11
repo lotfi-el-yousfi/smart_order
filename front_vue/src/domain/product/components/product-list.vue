@@ -2,9 +2,7 @@
   <v-data-table
       :headers="headers"
       :items="desserts" class="elevation-1"
-
   >
-
   </v-data-table>
 </template>
 
@@ -18,7 +16,7 @@ const desserts = ref([])
 onMounted(() => {
   getProducts().then((products) => {
     console.log(products.data)
-    headers.value =  products.data.keys
+    headers.value = products.data[0].keys;
     desserts.value = products.data
   })
 })

@@ -2,7 +2,7 @@ server:
   port: 8083
 spring:
   main:
-    web-application-type: reactive
+    #web-application-type: reactive
   datasource:
     jdbc: h2:mem:productDb;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
