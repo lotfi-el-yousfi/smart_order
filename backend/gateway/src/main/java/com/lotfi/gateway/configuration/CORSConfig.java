@@ -13,7 +13,7 @@ public class CORSConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/product/api/product/**")
+                registry.addMapping("/product/api/**")
                         .allowedOrigins("*") // Allow all origins
                         .allowedMethods("*") // Allow all HTTP methods
                         .allowedHeaders("*"); // Allow all headers
