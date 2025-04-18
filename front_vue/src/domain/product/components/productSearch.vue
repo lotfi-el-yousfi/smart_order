@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h1>product list</h1>
+  <h1>product search</h1>
 
 </template>
 

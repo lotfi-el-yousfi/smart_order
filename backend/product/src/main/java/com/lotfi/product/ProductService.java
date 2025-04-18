@@ -5,15 +5,15 @@ import java.util.List;
 public interface ProductService {
 
 
-    List<ProductDto> Listallproducts();
+    List<Product> Listallproducts();
 
-    Product GetproductdetailsbyID(Long id);
+    Product GetproductdetailsbyID(int id);
 
     List<ProductDto> SearchByNameCategoryPrice();
 
-    Long AddNewProduct(ProductDto dto);
+    int AddNewProduct(ProductDto dto);
 
-    Long UpdateProduct(int id, ProductDto dto);
+    int UpdateProduct(int id, ProductDto dto);
 
     void DeleteProduct(int id);
 }

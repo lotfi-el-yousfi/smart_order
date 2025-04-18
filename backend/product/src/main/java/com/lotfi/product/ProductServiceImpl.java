@@ -5,7 +5,6 @@ import com.lotfi.product.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,13 +18,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> Listallproducts() {
-        return repo.findAll().stream()
-                .map(mapper::toDto).collect(Collectors.toList());
+    public List<Product> Listallproducts() {
+        return repo.findAll()
+//                .stream()
+//                .map(mapper::toDto).collect(Collectors.toList())
+                ;
     }
 
     @Override
-    public Product GetproductdetailsbyID(Long id) {
+    public Product GetproductdetailsbyID(int id) {
         return repo.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Product with ID " + id + " not found"));
@@ -38,21 +39,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long AddNewProduct(ProductDto dto) {
+    public int AddNewProduct(ProductDto dto) {
 
         return repo.save(mapper.toEntity(dto)).getId();
     }
 
     @Override
-    public Long UpdateProduct(int id, ProductDto product) {
+    public int UpdateProduct(int id, ProductDto product) {
+        if (!repo.existsById(id)) {
+            throw new ResourceNotFoundException("Product with ID " + id + " not found");
+        }
         return repo.save(mapper.toEntity(product)).getId();
     }
 
     @Override
     public void DeleteProduct(int id) {
-        repo.deleteById(
-                Long.valueOf(id)
-        );
+        repo.deleteById(id);
 
     }
 }

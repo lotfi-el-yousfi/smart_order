@@ -8,20 +8,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ProductController {
-    private final ProductService service;
+    private final ProductServiceImpl service;
 
-    public ProductController(ProductService service) {
+    public ProductController(ProductServiceImpl service) {
         this.service = service;
     }
 
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProductDto>> Listallproducts() {
+    public ResponseEntity<List<Product>> Listallproducts() {
         return ResponseEntity.ok().body(service.Listallproducts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> GetproductdetailsbyID(@PathVariable Long id) {
+    public ResponseEntity<Product> GetproductdetailsbyID(@PathVariable int  id) {
         return ResponseEntity.ok().body(service.GetproductdetailsbyID(id));
     }
 
@@ -31,20 +31,20 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Long> AddNewProduct(@RequestBody ProductDto dto) {
+    public ResponseEntity<Integer> AddNewProduct(@RequestBody ProductDto dto) {
         return ResponseEntity.ok().body(service.AddNewProduct(dto));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Long> UpdateProduct(@PathVariable int id,
-                                              @RequestBody ProductDto dto) {
+    public ResponseEntity<Integer> UpdateProduct(@PathVariable int id,
+                                                 @RequestBody ProductDto dto) {
         return ResponseEntity.ok().body(service.UpdateProduct(id, dto));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> DeleteProduct(@PathVariable int id) {
+    public ResponseEntity<Void> DeleteProduct(@PathVariable int  id) {
         service.DeleteProduct(id);
-        return (ResponseEntity<?>) ResponseEntity.noContent();
+        return ResponseEntity.noContent().build();
     }
 
 }

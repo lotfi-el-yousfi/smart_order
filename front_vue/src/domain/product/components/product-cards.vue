@@ -1,18 +1,19 @@
 <template>
-  <v-container >
+  <v-container>
     <v-row>
       <v-col v-for="p in products" :key="p.id">
-        <v-card  >
+        <v-card>
           <v-img
-            :src="`https://picsum.photos/200/300`"
-            cover
-            class="rounded-t"
+              :src="`https://picsum.photos/200/300`"
+              cover
+              class="rounded-t"
           />
           <v-card-title>{{ p.name }}</v-card-title>
           <v-card-subtitle>{{ p.price }}</v-card-subtitle>
           <v-card-actions>
             <v-btn @click="$router.push({name: 'productEdit',
-            params: {id: p.id}})">Edit</v-btn>
+            params: {id: p.id}})">Edit
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

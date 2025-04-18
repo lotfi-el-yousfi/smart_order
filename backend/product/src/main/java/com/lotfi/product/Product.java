@@ -13,8 +13,9 @@ import lombok.*;
 @Table(name = "Product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int  id;
     private String name;
     private Double price;
+    private String description;
 }

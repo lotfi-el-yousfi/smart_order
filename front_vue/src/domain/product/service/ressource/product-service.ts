@@ -1,11 +1,10 @@
 import axios from 'axios';
-import {ProductDto} from "../../model/ProductDto";
+import {Product} from "../../model/Product";
 
 export const baseUrl = 'http://localhost:8085/product/api'; // this if gatway is not returning cors error
 //export const baseUrl = 'http://localhost:8083/api';
 
 export const getProducts = async () => {
-    console.log(`${baseUrl}/list`)
     return axios.get(`${baseUrl}/list`);
 }
 export const getProductById = (id: number) => {
@@ -13,12 +12,18 @@ export const getProductById = (id: number) => {
 }
 
 export function createProduct(product) {
-    console.log(product)
+
     return axios.post(`${baseUrl}/new`, product);
 }
 
 export function updateProduct(id: number,
-                              product: ProductDto) {
+                              product: Product) {
     return axios.put(`${baseUrl}/update/${id}`, product);
+}
+
+export function deleteProduct(id: number,
+) {
+
+    return axios.delete(`${baseUrl}/delete/${id}`);
 }
 
