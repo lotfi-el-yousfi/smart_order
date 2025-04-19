@@ -10,7 +10,7 @@ import ProductList from "@/domain/product/components/ProductList.vue";
     <v-spacer></v-spacer>
     <v-btn
         to="/product/"
-        icon="mdi-list"
+        icon="mdi-menu"
         variant="text"
     ></v-btn>
     <v-btn

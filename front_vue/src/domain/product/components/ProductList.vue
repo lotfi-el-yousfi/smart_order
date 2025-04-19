@@ -76,7 +76,7 @@ onMounted(() => {
 
 
 const edit_product = (id) => {
-  router.push({name: 'edit', params: {id: id}}); // Use the router instance
+  router.push( `edit/${id}` ); // Use the router instance
 }
 const delete_product = (id) => {
   try {

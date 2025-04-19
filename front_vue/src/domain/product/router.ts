@@ -17,16 +17,17 @@ const productRouter =
                 props: true
             },
             {
-                path: 'edit/',
-                name: 'edit',
-                component: productEditForm,
-            }, {
-                path: 'edit/:id',
+                path: 'edit',
                 name: 'edit',
                 component: productEditForm,
                 props: true
             },
             {
+                path: 'edit/:id',
+                name: 'editWithId',
+                component: productEditForm,
+                props: true
+            }, {
                 path: 'search',
                 name: 'search',
                 component: productSearch,

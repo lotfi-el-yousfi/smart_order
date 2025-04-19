@@ -3,7 +3,7 @@
   <v-form @submit.prevent="onSubmit">
     <v-text-field v-model="product.name" label="Name" variant="outlined" density="compact"/>
     <v-text-field v-model="product.price" label="Price" type="number" variant="outlined" density="compact"/>
-    <v-text-field v-model="product.description" label="description" variant="outlined" density="compact"/>
+        <v-text-field v-model="product.description" label="description" variant="outlined" density="compact"/>
     <v-btn type="submit"
            color="primary"
            prepend-icon="mdi-content-save" variant="elevated">Submit
@@ -48,7 +48,6 @@ let snack_text = ref("")
 let snackbar = ref(false)
 
 onMounted(() => {
-  alert  ("qdqsd")
   let id = route.params.id || null
   if (id !== null || id !== undefined) {
     if (id) {

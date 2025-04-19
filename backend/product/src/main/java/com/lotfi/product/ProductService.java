@@ -13,7 +13,7 @@ public interface ProductService {
 
     int AddNewProduct(ProductDto dto);
 
-    int UpdateProduct(int id, ProductDto dto);
+    int UpdateProduct(int id, Product  dto);
 
     void DeleteProduct(int id);
 }

@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product GetproductdetailsbyID(int id) {
-        return repo.findById(id)
+        return repo.findProductById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Product with ID " + id + " not found"));
 
@@ -45,11 +45,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int UpdateProduct(int id, ProductDto product) {
+    public int UpdateProduct(int id, Product product) {
         if (!repo.existsById(id)) {
             throw new ResourceNotFoundException("Product with ID " + id + " not found");
         }
-        return repo.save(mapper.toEntity(product)).getId();
+        return repo.save(product).getId();
     }
 
     @Override
