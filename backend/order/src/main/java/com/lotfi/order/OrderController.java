@@ -1,11 +1,16 @@
 package com.lotfi.order;
 
+import com.lotfi.order.dtos.OrderCreateDTO;
+import com.lotfi.order.dtos.OrderResponseDTO;
+import com.lotfi.order.dtos.OrderUpdateDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/orders")
 public class OrderController {
     private final OrderServiceImpl service;
 
@@ -13,25 +18,29 @@ public class OrderController {
         this.service = service;
     }
 
-    @GetMapping("/list")
-    public List<OrderDto> getAll() {
-        return service.getAll();
-    }
-
-    @PostMapping("/new")
-    public OrderDto create(@RequestBody OrderDto dto) {
-        return service.create(dto);
+    @GetMapping
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
+        return ResponseEntity.ok().body(service.getAllOrders());
     }
 
     @GetMapping("/{id}")
-    public List<OrderDto> getOrderById(@PathVariable Long id) {
-        return service.findOrderById(id);
+    public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(service.getOrderById(id));
     }
 
-    @PostMapping("/update/{id}")
-    public Long createNewOrder(@PathVariable Long id
-            , @RequestBody OrderDto dto) {
-        return service.save(dto);
+    @PostMapping
+    public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderCreateDTO dto) {
+        return ResponseEntity.ok().body(service.createOrder(dto));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> updateOrder(@PathVariable Long id, @RequestBody OrderCreateDTO dto) {
+        return ResponseEntity.ok().body(service.updateOrder(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity.HeadersBuilder<?> deleteOrder(@PathVariable Long id) {
+        service.deleteOrder(id);
+        return ResponseEntity.noContent();
+    }
 }

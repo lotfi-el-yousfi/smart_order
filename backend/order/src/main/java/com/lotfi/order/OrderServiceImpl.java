@@ -1,11 +1,14 @@
 package com.lotfi.order;
 
 
-import ch.qos.logback.core.net.SyslogOutputStream;
+import com.lotfi.order.dtos.OrderCreateDTO;
+import com.lotfi.order.dtos.OrderResponseDTO;
+import com.lotfi.order.dtos.OrderUpdateDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -19,27 +22,30 @@ public class OrderServiceImpl implements OrderService {
         this.mapper = mapper;
     }
 
+
     @Override
-    public List<OrderDto> getAll() {
-        return repo.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+    public List<OrderResponseDTO> getAllOrders() {
+        return repo.findAll().stream().map(mapper::toResponseDTO).collect(Collectors.toList());
     }
 
     @Override
-    public OrderDto create(OrderDto dto) {
-        Order entity = mapper.toEntity(dto);
-        return mapper.toDto(repo.save(entity));
+    public OrderResponseDTO getOrderById(Long id) {
+        return mapper.toResponseDTO(repo.findOrderById(id));
     }
 
     @Override
-    public List<OrderDto> findOrderById(Long id) {
-        return repo.findOrderById(id).stream().map(mapper::toDto).collect(Collectors.toList());
-
+    public OrderResponseDTO createOrder(OrderCreateDTO dto) {
+        return mapper.toResponseDTO(repo.save(mapper.toEntity(dto)));
     }
 
     @Override
-    public Long save(OrderDto dto) {
-        System.out.println("save   "+ dto);
-        return repo.save(mapper.toEntity(dto)).getId();
+    public OrderResponseDTO updateOrder(Long id, OrderCreateDTO dto) {
+        return mapper.toResponseDTO(repo.save(mapper.toEntity(dto)));
+    }
+
+    @Override
+    public void deleteOrder(Long id) {
+        repo.deleteById(id);
     }
 
 
