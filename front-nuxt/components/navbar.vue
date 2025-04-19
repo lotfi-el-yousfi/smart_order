@@ -20,6 +20,9 @@
       <li>
         <NuxtLink to="/info" class="text-blue-500 hover:text-blue-700">Info</NuxtLink>
       </li>
+      <li>
+        <NuxtLink to="/login" class="text-blue-500 hover:text-blue-700">login</NuxtLink>
+      </li>
     </ul>
   </nav>
 </template>

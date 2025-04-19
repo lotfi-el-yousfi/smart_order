@@ -75,4 +75,84 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## there is a probleme with vuetify and tailwinds
+
+```bash
+npm install vuetify@next
+
+// plugins/vuetify.ts
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import 'vuetify/styles'
+
+export default defineNuxtPlugin((nuxtApp) => {
+  const vuetify = createVuetify({
+    components,
+    directives,
+  })
+
+  nuxtApp.vueApp.use(vuetify)
+})
+
+# nuxt.config.ts
+export default defineNuxtConfig({
+  css: ['vuetify/styles'],
+  build: {
+    transpile: ['vuetify'],
+  },
+})
+
+
+ Install Tailwind CSS 
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+
+
+tailwind.config.js
+
+module.exports = {
+  content: [
+    './components/**/*.{vue,js,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './app.vue',
+    './nuxt.config.ts'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+
+assets/css/tailwind.css
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+nuxt.config.ts
+export default defineNuxtConfig({
+  css: [
+    'vuetify/styles',
+    '@/assets/css/tailwind.css'
+  ],
+  build: {
+    transpile: ['vuetify'],
+  },
+})
+
+
+```
+
+# to reinitialize tailwind
+
+```
+rm -rf node_modules package-lock.json && npm cache clean --force && npm install && ls node_modules/.bin/tailwindcss && npx tailwindcss init -p
+```
+ 

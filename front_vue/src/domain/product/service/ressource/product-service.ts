@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Product} from "../../model/Product";
+import {IProduct} from "../../model/IProduct";
 
 export const baseUrl = 'http://localhost:8085/product/api'; // this if gatway is not returning cors error
 //export const baseUrl = 'http://localhost:8083/api';
@@ -17,7 +17,7 @@ export function createProduct(product) {
 }
 
 export function updateProduct(id: number,
-                              product: Product) {
+                              product: IProduct) {
     return axios.put(`${baseUrl}/update/${id}`, product);
 }
 
