@@ -39,8 +39,9 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity.HeadersBuilder<?> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         service.deleteOrder(id);
-        return ResponseEntity.noContent();
+        return ResponseEntity.noContent().build();
+
     }
 }

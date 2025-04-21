@@ -1,12 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
-import orderList from "../order/components/order-list.vue";
-const routes = [
-    {
-        path: '/',
-        name: 'order.list',
-        component: orderList
-    }
-]
+
+const routes = []
 
 const router = createRouter({
     history: createWebHistory(),

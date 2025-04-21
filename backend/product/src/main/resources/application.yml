@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8084
 spring:
   datasource:
     jdbc: h2:mem:productDb;DB_CLOSE_DELAY=-1

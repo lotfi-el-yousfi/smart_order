@@ -1,8 +1,10 @@
-export interface orderDto {
+import { Status } from "./status";
+
+export interface OrderDto {
     id: number;
     name?: string;
     price?: number;
-    status?: string;
+    status?: Status;
     user?: string;
     product?: string;
 }

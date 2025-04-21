@@ -1,5 +1,5 @@
 ###
-GET localhost:8085/order/api/order/api/orders
+GET localhost:8085/order/api/orders
 Content-Type: application/json
 
 <> 2025-04-19T144958.404.json
@@ -19,7 +19,7 @@ Content-Type: application/json
 <> 2025-04-19T144959.404.json
 
 ###
-POST localhost:8085/order/api/api/orders
+POST localhost:8085/order/api/orders
 Content-Type: application/json
 
 <> 2025-04-19T144959-1.404.json

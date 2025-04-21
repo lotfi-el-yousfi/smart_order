@@ -6,8 +6,11 @@ const router = useRouter()
 
 const leftDrawerOpen = ref(false)
 const items = [
-  {icon: 'mdi-home-city', title: 'product', to: '/product'},
-  {icon: 'mdi-account', title: 'order', to: '/order'},
+  {icon: 'mdi-shopping', title: 'order list', to: '/orders'},
+  {icon: 'mdi-shopping', title: 'new order', to: '/orders/new'},
+  {icon: 'mdi-shopping', title: 'edit order', to: '/orders/edit/1'},
+  {icon: 'mdi-shopping', title: 'order details', to: '/orders/1'},
+  {icon: 'mdi-archive', title: 'product', to: '/product'},
   {icon: 'mdi-account-plus', title: 'user', to: '/user'},
 ]
 

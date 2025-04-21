@@ -5,6 +5,7 @@ import com.lotfi.order.dtos.OrderCreateDTO;
 import com.lotfi.order.dtos.OrderResponseDTO;
 import com.lotfi.order.dtos.OrderUpdateDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,7 +41,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDTO updateOrder(Long id, OrderCreateDTO dto) {
-        return mapper.toResponseDTO(repo.save(mapper.toEntity(dto)));
+        Optional<Order> existingOrderOpt = repo.findById(id);
+        if (existingOrderOpt.isPresent()) {
+            Order existingOrder = existingOrderOpt.get();
+            existingOrder.setName(dto.getName());
+            existingOrder.setPrice(dto.getPrice());
+            existingOrder.setStatus(dto.getStatus());
+            existingOrder.setProduct(dto.getProduct());
+            repo.save(existingOrder);
+            return mapper.toResponseDTO(existingOrder);
+        } else {
+            throw new RuntimeException("Order not found");
+        }
     }
 
     @Override
