@@ -1,40 +1,18 @@
-import productEditForm from "./components/ProductEditForm.vue";
-import productSearch from "./components/productSearch.vue";
-import productList from "./components/ProductList.vue";
-import product from "./view/product.vue";
+// src/router/routes.ts
+import {createRouter, createWebHistory} from 'vue-router';
+import ProductList from '@/domain/product/components/ProductList.vue';
 
-const productRouter =
+const router = createRouter({
+    history: createWebHistory(
+        import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: '/products',
+            name: 'ProductList',
+            component: ProductList,
+        },
+        // Add other routes as needed
+    ],
+});
 
-    {
-        path: '/product',
-        name: 'product',
-        component: product,
-        children: [
-            {
-                path: '',
-                name: 'list',
-                component: productList,
-                props: true
-            },
-            {
-                path: 'edit',
-                name: 'edit',
-                component: productEditForm,
-                props: true
-            },
-            {
-                path: 'edit/:id',
-                name: 'editWithId',
-                component: productEditForm,
-                props: true
-            }, {
-                path: 'search',
-                name: 'search',
-                component: productSearch,
-                props: true
-            }
-        ]
-    }
-
-
-export default productRouter;
+export default router;

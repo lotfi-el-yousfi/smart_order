@@ -25,9 +25,9 @@ const isEditMode = ref(false)
 
 onMounted(async () => {
 
-  const idParam = route.params.id
-  if (idParam) {
-     isEditMode.value = true
+  const idParam = Number(route.params.id)
+  if (!isNaN(idParam)) {
+    isEditMode.value = true
 
     await orderStore.dispatchFetchOrders()
     const id = Number(idParam)
@@ -35,6 +35,9 @@ onMounted(async () => {
     if (order) {
       form.value = {...order}
     }
+  } else {
+    await router.push({name: 'OrderList'})
+    return;
   }
 
 })

@@ -1,73 +1,110 @@
-import {defineStore} from 'pinia'
+// src/domain/product/store/product-store.ts
+import {defineStore, acceptHMRUpdate} from 'pinia';
+import {ref} from 'vue';
+import {ProductDto} from '../model/ProductDto';
+import * as productService from '../service/product-service';
 
-import {deleteProduct, getProductById, getProducts, updateProduct} from "../service/ressource/product-service";
-import {Product} from "../model/Product";
+export const useProductStore = defineStore('ProductStore', () => {
+    const products = ref<ProductDto[]>([]);
+    const currentProduct = ref<ProductDto | null>(null);
+    const isLoading = ref(false);
+    const error = ref<string | null>(null);
 
-export const useproductStore = defineStore('productStore', {
-    state: () => ({
-        products: [],
-        loading: false,
-        error: null,
-    }),
-    actions: {
-        async fetchProducts() {
-            this.loading = true;
-            this.error = null;
-            try {
-                const response = await getProducts();
+    const clearError = () => {
+        error.value = null;
+    };
 
-                const data = await response.data;
-                this.products = data;
-                console.log('Fetched products:', data);
-                this.loading = false;
-            } catch (error: any) {
-                this.error = error.message || 'Failed to fetch products';
-                this.loading = false;
-                console.error('Error fetching products:', error);
+    const fetchProducts = async () => {
+        isLoading.value = true;
+        clearError();
+        try {
+            products.value = await productService.fetchProducts();
+        } catch (err) {
+            error.value = err instanceof Error ? err.message : 'Failed to fetch products';
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    const fetchProductById = async (id: number) => {
+        isLoading.value = true;
+        clearError();
+        try {
+            currentProduct.value = await productService.fetchProductById(id);
+        } catch (err) {
+            error.value = err instanceof Error ? err.message : 'Failed to fetch product';
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    const createProduct = async (product: Omit<ProductDto, 'id'>) => {
+        isLoading.value = true;
+        clearError();
+        try {
+            const createdProduct = await productService.createProduct(product);
+            products.value.push(createdProduct);
+            return createdProduct;
+        } catch (err) {
+            error.value = err instanceof Error ? err.message : 'Failed to create product';
+            throw err; // Re-throw for component handling
+        } finally {
+            isLoading.value = false;
+        }
+    };
+
+    const updateProduct = async (id: number, product: Partial<ProductDto>) => {
+        isLoading.value = true;
+        clearError();
+        try {
+            const updatedProduct = await productService.updateProduct(id, product);
+            products.value = products.value.map(p =>
+                p.id === updatedProduct.id ? updatedProduct : p
+            );
+            if (currentProduct.value?.id === updatedProduct.id) {
+                currentProduct.value = updatedProduct;
             }
-        },
-        updateProduct(updatedProduct: Product): any {
-            this.loading = true
-            updateProduct(updatedProduct.id, updatedProduct)
-                .then(() => {
-
-                    //update in the list of products
-                    let p: Product | undefined = this.products.find((p) => p.id === updatedProduct.id);
-                    if (p) {
-                        p.name = updatedProduct.name;
-                        p.price = updatedProduct.price;
-                        p.description = updatedProduct.description;
-                    }
-                    this.loading = false
-                    this.error = null;
-                }).catch((error) => {
-                this.error = error
-                this.loading = false
-            })
-        },
-        fetchProductById(id: number) {
-            this.loading = true
-            getProductById(id).then((product) => {
-                this.products.push(product)
-
-                this.loading = false
-                this.error = null;
-            }).catch((error) => {
-                this.error = error
-                this.loading = false
-            })
+            return updatedProduct;
+        } catch (err) {
+            error.value = err instanceof Error ? err.message : 'Failed to update product';
+            throw err;
+        } finally {
+            isLoading.value = false;
         }
-        , deleteProductById(id: number) {
-            this.loading = true
-            deleteProduct(id).then((
-                product) => {
-                this.loading = false
-                this.error = null;
-                this.products = this.products.filter(product => product.id !== id);            }).catch((error) => {
-                this.error = error
-                this.loading = false
-            })
+    };
+
+    const deleteProduct = async (id: number) => {
+        isLoading.value = true;
+        clearError();
+        try {
+            await productService.deleteProduct(id);
+            products.value = products.value.filter(p => p.id !== id);
+            if (currentProduct.value?.id === id) {
+                currentProduct.value = null;
+            }
+        } catch (err) {
+            error.value = err instanceof Error ? err.message : 'Failed to delete product';
+            throw err;
+        } finally {
+            isLoading.value = false;
         }
-        ,
-    }
-})
+    };
+
+    return {
+        products,
+        currentProduct,
+        isLoading,
+        error,
+        clearError,
+        fetchProducts,
+        fetchProductById,
+        createProduct,
+        updateProduct,
+        deleteProduct,
+    };
+});
+
+// Enable HMR
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useProductStore, import.meta.hot));
+}

@@ -1,99 +1,108 @@
+<script setup lang="ts">
+import {onMounted, ref} from 'vue';
+import {useRouter} from 'vue-router';
+import ProductForm from './ProductForm.vue';
+import {ProductDto} from "@/domain/product/model/ProductDto";
+import {useProductStore} from "@/domain/product/store/productStore";
+
+const router = useRouter();
+const productStore = useProductStore();
+const showForm = ref(false);
+const isEditing = ref(false);
+
+onMounted(async () => {
+  await productStore.fetchProducts();
+});
+
+const handleEdit = (id: number) => {
+  productStore.fetchProductById(id);
+  isEditing.value = true;
+  showForm.value = true;
+};
+
+const handleDelete = async (id: number) => {
+  if (confirm('Are you sure you want to delete this product?')) {
+    await productStore.deleteProduct(id);
+  }
+};
+
+const handleFormSubmit = async (product: ProductDto) => {
+  try {
+    if (isEditing.value && product.id) {
+      await productStore.updateProduct(product.id, product);
+    } else {
+      await productStore.createProduct(product);
+    }
+    showForm.value = false;
+    isEditing.value = false;
+  } catch (error) {
+    // Error is already handled in the store
+  }
+};
+
+const handleCancel = () => {
+  showForm.value = false;
+  isEditing.value = false;
+  productStore.currentProduct = null;
+};
+</script>
+
 <template>
-  <v-progress-circular
-      v-if="loading"
-      :size="50"
-      color="primary"
-      indeterminate
-  ></v-progress-circular>
+  <div class="product-management">
+    <h1>Product Management</h1>
 
-  <v-alert
-      v-if="!loading && products.length === 0"
-      type="info"
-      text
-  >
-    No products available.
-  </v-alert>
-  <v-row v-for="item in products">
-    <v-list-item
+    <v-alert v-if="productStore.error" type="error" dismissible @click="productStore.clearError">
+      {{ productStore.error }}
+    </v-alert>
+
+    <v-btn
+        color="primary"
+        @click="() => { showForm = true; isEditing = false; productStore.currentProduct = null; }"
+        :disabled="productStore.isLoading"
     >
-      <template v-slot:prepend>
-        <v-avatar>
-          <v-icon color="indigo" icon="mdi-map-marker"></v-icon>
-        </v-avatar>
+      Add New Product
+    </v-btn>
+
+    <v-dialog v-model="showForm" max-width="800">
+      <ProductForm
+          :product="productStore.currentProduct"
+          :isEditing="isEditing"
+          @submit="handleFormSubmit"
+          @cancel="handleCancel"
+      />
+    </v-dialog>
+
+    <v-progress-linear v-if="productStore.isLoading" indeterminate/>
+
+    <v-data-table
+        :headers="[
+        { title: 'ID', key: 'id' },
+        { title: 'Name', key: 'name' },
+        { title: 'Price', key: 'price' },
+        { title: 'Stock', key: 'stock' },
+        { title: 'Category', key: 'category' },
+        { title: 'Actions', key: 'actions' },
+      ]"
+        :items="productStore.products"
+        class="elevation-1 mt-4"
+    >
+      <template #item.price="{ item }">
+        {{ item.price.toFixed(2) }}
       </template>
-
-      <v-list-item-title>{{ item.name }}</v-list-item-title>
-      <v-list-item-subtitle>{{ item.price }}</v-list-item-subtitle>
-      <v-list-item-subtitle>{{ item.description }}</v-list-item-subtitle>
-
-    </v-list-item>
-    <v-btn @click="edit_product(item.id)">
-      Edit
-    </v-btn>
-    <v-btn @click="delete_product(item.id)">
-      Delete
-    </v-btn>
-
-  </v-row>
-  <v-snackbar
-      v-model="snackbar"
-      :timeout="3000"
-      location="bottom"
-      variant="contained"
-      v-if="snack_text"
-  >
-    {{ snack_text }}
-    <template v-slot:actions>
-      <v-btn
-          color="red"
-          variant="text"
-          @click="snackbar = false"
-      >
-        Close
-      </v-btn>
-    </template>
-  </v-snackbar>
-
+      <template #item.actions="{ item }">
+        <v-btn icon small @click="handleEdit(item.id)">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn icon small color="error" @click="handleDelete(item.id)">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
-<script setup>
-import {onMounted, ref} from "vue";
-import {useproductStore} from "@/domain/product/store/productStore";
-import {storeToRefs} from "pinia";
-import router from "@/router";
-
-const useProducts = useproductStore()
-
-const {loading, error, products} = storeToRefs(useProducts)
-
-const snackbar = ref(false)
-const snack_text = ref("")
-
-onMounted(() => {
-  useProducts.fetchProducts()
-
-})
-
-
-const edit_product = (id) => {
-  router.push( `edit/${id}` ); // Use the router instance
-}
-const delete_product = (id) => {
-  try {
-    useProducts.deleteProductById(id)
-
-    snackbar.value = true
-    snack_text.value = "Product deleted successfully"
-  } catch (err) {
-    snackbar.value = true
-    snack_text.value = "Error deleting product"
-  }
-
-}
-
-</script>
 <style scoped>
-.v-progress-circular {
-  margin: 1rem;
+.product-management {
+  padding: 20px;
 }
 </style>
