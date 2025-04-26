@@ -27,8 +27,7 @@ onMounted(async () => {
 
   const idParam = route.params.id
   if (idParam) {
-    alert(idParam)
-    isEditMode.value = true
+     isEditMode.value = true
 
     await orderStore.dispatchFetchOrders()
     const id = Number(idParam)
@@ -45,10 +44,10 @@ onMounted(async () => {
 
 const handleSubmit = () => {
   if (isEditMode.value) {
-    alert("submit update")
+
     orderStore.dispatchUpdateOrder(Number(route.params.id), form.value);
   } else {
-    alert("submit create")
+
     orderStore.dispatchAddOrder(form.value);
   }
 }

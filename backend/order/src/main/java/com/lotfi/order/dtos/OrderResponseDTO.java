@@ -6,7 +6,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderResponseDTO {
+public class
+OrderResponseDTO {
     private Long id;
     private String name;
     private Double price;

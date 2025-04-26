@@ -1,7 +1,11 @@
-import {defineStore} from 'pinia';
+import {defineStore, acceptHMRUpdate} from 'pinia';
 import {ref} from 'vue';
 import {OrderDto} from "../model/OrderDto";
-import {createOrder, getOrderById, getOrders, updateOrder, deleteOrder} from "../service/ressource/order-service";
+import {
+    createOrder, getOrderById,
+    getOrders,
+    updateOrder, deleteOrder
+} from "../service/ressource/order-service";
 
 export const useOrderStore = defineStore('OrderStore', () => {
     const orders = ref<OrderDto[]>([]);
@@ -86,4 +90,7 @@ export const useOrderStore = defineStore('OrderStore', () => {
 
     };
 });
-
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useOrderStore,
+        import.meta.hot))
+}

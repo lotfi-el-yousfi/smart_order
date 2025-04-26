@@ -42,6 +42,5 @@ public class OrderController {
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         service.deleteOrder(id);
         return ResponseEntity.noContent().build();
-
     }
 }

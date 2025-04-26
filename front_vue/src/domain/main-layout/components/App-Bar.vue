@@ -44,12 +44,12 @@ const items = [
     <v-img class="mx-2" src="" contain height="40"/>
     <v-toolbar-title>E-commerce app</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn>
+    <router-link to="/login">
+      <v-btn icon>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+    </router-link>
+
   </v-app-bar>
 </template>
 
