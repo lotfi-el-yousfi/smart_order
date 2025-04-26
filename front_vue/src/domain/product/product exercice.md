@@ -21,7 +21,7 @@ export interface Product {
 
 **Exercise 1: Fetching and Displaying a List of Products**
 
-1.  **Create a Pinia store** named `productStore` (`src/stores/productStore.ts`):
+1.  **Create a Pinia store** named `productStore` (`src/stores/ClientStore.ts`):
     * State:
         * `products`: An array of `Product` initialized as an empty array (`[]`).
         * `loading`: A boolean initialized to `false`.
@@ -48,7 +48,7 @@ export interface Product {
 
 **Exercise 2: Creating a New Product**
 
-1.  **Update the `productStore` (`src/stores/productStore.ts`):**
+1.  **Update the `productStore` (`src/stores/ClientStore.ts`):**
     * Add a new action `createProduct(newProduct: Omit<Product, 'id'>)`:
         * Sets `loading` to `true`.
         * Uses `fetch` (or Axios) to call the `POST /api/products` endpoint, sending the `newProduct` in the request body (as JSON).
@@ -73,7 +73,7 @@ export interface Product {
 
 **Exercise 3: Editing and Updating an Existing Product**
 
-1.  **Update the `productStore` (`src/stores/productStore.ts`):**
+1.  **Update the `productStore` (`src/stores/ClientStore.ts`):**
     * Add a new action `updateProduct(updatedProduct: Product)`:
         * Sets `loading` to `true`.
         * Uses `fetch` (or Axios) to call the `PUT /api/products/{id}` endpoint, sending the `updatedProduct` in the request body.
@@ -102,7 +102,7 @@ export interface Product {
 
 **Exercise 4: Deleting a Product**
 
-1.  **Update the `productStore` (`src/stores/productStore.ts`):**
+1.  **Update the `productStore` (`src/stores/ClientStore.ts`):**
     * Add a new action `deleteProduct(id: number)`:
         * Sets `loading` to `true`.
         * Uses `fetch` (or Axios) to call the `DELETE /api/products/{id}` endpoint.

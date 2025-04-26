@@ -1,4 +1,4 @@
-// src/domain/product/service/product-service.ts
+// src/domain/product/service/client-service.ts
 import axios from 'axios';
 import { ProductDto } from '../model/ProductDto';
 import { ProductSchema } from '../model/ProductDto';

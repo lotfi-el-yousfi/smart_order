@@ -1,13 +1,13 @@
 <script setup>
 import {ref, reactive} from 'vue'
 import {useRouter} from 'vue-router'
-import {useAuth} from '@/domain/auth/store/store'
+import {useAuthStore} from '@/domain/auth/store/store'
 import {useForm} from 'vee-validate';
 import {object, string} from 'yup';
 import {toTypedSchema} from "@vee-validate/yup";
 
 const router = useRouter()
-const authStore = useAuth()
+const authStore = useAuthStore()
 
 const schema = toTypedSchema(object({
   email: string().email().required(),

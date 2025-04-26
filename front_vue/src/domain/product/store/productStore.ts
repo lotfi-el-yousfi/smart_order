@@ -1,4 +1,4 @@
-// src/domain/product/store/product-store.ts
+
 import {defineStore, acceptHMRUpdate} from 'pinia';
 import {ref} from 'vue';
 import {ProductDto} from '../model/ProductDto';
